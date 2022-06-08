@@ -20,35 +20,35 @@ const gun = new Audio('../media/audio/gun.mp3')
 const audioData = [
     {
         audio: dattebayo,
-        keyCode: 68
+        which: 68
     },
     {
         audio: araara,
-        keyCode: 65
+        which: 65
     },
     {
         audio: tuturu,
-        keyCode: 84
+        which: 84
     },
     {
         audio: wow,
-        keyCode: 87
+        which: 87
     },
     {
         audio: gun,
-        keyCode: 71
+        which: 71
     },
     {
         audio: meow,
-        keyCode: 77
+        which: 77
     }
 ]
 
 // When key is pressed audio will play
-const getSoundEvent = ({e, audio, keyCode, timeOut}) => {
-    if (e.keyCode === keyCode){
+const getSoundEvent = ({e, audio, which, timeOut}) => {
+    if (e.which === which){
         video.volume = 0.2
-        const key = document.querySelector(`.${e.key}`)
+        const key = document.querySelector(`.${e.code.substring(3).toLowerCase()}`)
         key.classList.add('clickKey')
         audio.play()
         setTimeout(() => {
@@ -59,8 +59,8 @@ const getSoundEvent = ({e, audio, keyCode, timeOut}) => {
 }
 
 // Sets event listener for window for given key
-const setEventForKey = (audio, keyCode) => {
-    window.addEventListener('keydown', e => getSoundEvent({e, audio, keyCode, timeOut: audio.duration}))
+const setEventForKey = (audio, which) => {
+    window.addEventListener('keydown', e => getSoundEvent({e, audio, which, timeOut: audio.duration}))
 }
 
 // Show options
@@ -109,7 +109,7 @@ const watchProgress = () => {
 
 // Watch space key
 window.addEventListener('keydown', e => {
-    if (e.keyCode !== 32) return
+    if (e.which !== 32) return
     controlVideo()
 
     const key = keyboard.querySelector('.space')
@@ -121,7 +121,7 @@ window.addEventListener('keydown', e => {
 
 // Mute video
 window.addEventListener('keydown', e => {
-    if(e.keyCode !== 88) return
+    if(e.which !== 88) return
     if (video.muted) {
         video.volume = 1
         mute.querySelector('img').src = './media/img/volume.png'
@@ -134,11 +134,11 @@ window.addEventListener('keydown', e => {
 
 // Reset video
 window.addEventListener('keydown', e => {
-    if(e.keyCode !== 82) return
+    if(e.which !== 82) return
     video.currentTime = 0
 })
 
 // Sets events for window for every key in object
 Object.values(audioData).forEach(v => {
-    setEventForKey(v.audio, v.keyCode)
+    setEventForKey(v.audio, v.which)
 })
