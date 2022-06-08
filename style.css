@@ -144,10 +144,12 @@ main {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    gap: 1rem;
 }
 
 .keyboard > * {
     width: 3rem;
+    padding: .2rem;
     aspect-ratio: 1;
 
     background-color: rgba(0, 0, 0, .2);
@@ -178,7 +180,21 @@ main {
 }
 
 .space {
-    width: 30rem;
+    width: clamp(3rem, 30rem, 30rem);
     height: 3rem;
     aspect-ratio: unset;
+}
+
+@media screen and (max-width: 425px){
+    .playBtnWrapper h1 {
+        font-size: 4rem;
+    }
+
+    .playBtnWrapper h1 {
+        bottom: .2rem;
+    }
+
+    .keyboard{
+        gap: .2rem;
+    }
 }
